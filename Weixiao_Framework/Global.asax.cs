@@ -19,5 +19,18 @@ namespace Weixiao_Framework
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        public override void Init()
+        {
+            this.AuthenticateRequest += WebApiApplication_AuthenticateRequest;
+            base.Init();
+        }
+
+        //开启session支持
+        private void WebApiApplication_AuthenticateRequest(object sender, EventArgs e)
+        {
+            //启用 webapi 支持session 会话
+            HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
+        }
     }
 }
